@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { createAccount } from "@/lib/actions/user.action"
+import { createAccount, signInUser } from "@/lib/actions/user.action"
 import OtpModel from "./OtpModel"
 
 
@@ -49,10 +49,10 @@ const AuthForm = ({type}: {type: FormType}) => {
         try {
           setIsLoading(true)
           setErrorMessage('')
-          const user = await createAccount({
+          const user = type === 'sign-up' ?  await createAccount({
             fullName: values.fullName || '',
-            email: values.email
-          })
+            email: values.email 
+          }) :  await signInUser({email: values.email})
           setAccountId(user.accountId)
         } catch (error) {
           setErrorMessage("Failed to create an account. Please try again.")
