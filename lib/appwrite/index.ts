@@ -3,11 +3,11 @@ import { Account, Avatars, Client, Databases, Storage } from "node-appwrite"
 import { appwriteConfig } from "./config"
 import { cookies } from "next/headers"
 
-export const createSessionClient = async () => {
+export const createSessionClient = async () => {  
     const client = new Client().
                     setEndpoint(appwriteConfig.endpoinUrl)
                     .setProject(appwriteConfig.projectId)
-   
+
    const session = (await cookies()).get('appwrite-session')
    
    if(!session || !session.value) {
